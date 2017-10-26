@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/nutrition"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/nutrition"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="nutrition">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="nutritionId" type="xsd:int" minOccurs="0"/>
+				<xsd:element name="nutritionName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="nutritionValue" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="nutritionUom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="pctDailyIntakeVal" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="subProductDesc" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="nutritionSeq" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="isSupplement" type="xsd:boolean" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="nutritionFacts">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="nutritionSequence" type="xsd:int" minOccurs="0"/>
+				<xsd:element name="servingSize" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="servingPerContainer" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="nutrition" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

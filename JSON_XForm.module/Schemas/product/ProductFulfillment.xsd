@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/ProductFulfillment"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/ProductFulfillment"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="productFulfillmentChnl">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="isCurbsidePickUp" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isCurbsideDelivery" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isDeliveryToHome" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isShipToStore" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isShipFromStore" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isShipToHomeFresh" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isPickUpInStore" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isDisplayOnly" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isDoNotDisplay" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="isShipToHome" type="xsd:boolean" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

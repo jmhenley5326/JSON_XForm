@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/productApiOut"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns:ns0="http://xmlns.heb.com/ei/bkryBottomColor"
+	 xmlns:ns1="http://xmlns.heb.com/ei/bkryThm"
+	 xmlns:ns2="http://xmlns.heb.com/ei/bkryTopColor"
+	 xmlns:ns3="http://xmlns.heb.com/ei/bkryTxtColor"
+	 xmlns:ns4="http://xmlns.heb.com/ei/cakeFilling"
+	 xmlns:ns5="http://xmlns.heb.com/ei/cakeFlavor"
+	 xmlns:ns6="http://xmlns.heb.com/ei/cakeFrost"
+	 xmlns:ns7="http://xmlns.heb.com/ei/categories"
+	 xmlns:ns8="http://xmlns.heb.com/ei/floralAltColor"
+	 xmlns:ns9="http://xmlns.heb.com/ei/floralPrefColor"
+	 xmlns:ns10="http://xmlns.heb.com/ei/pickers"
+	 xmlns:ns11="http://xmlns.heb.com/ei/prodExtAttrib"
+	 xmlns:ns12="http://xmlns.heb.com/ei/region"
+	 xmlns:ns13="http://xmlns.heb.com/ei/shape"
+	 xmlns:ns14="http://xmlns.heb.com/ei/snipes"
+	 xmlns:ns15="http://xmlns.heb.com/ei/varietal"
+	 xmlns:ns16="http://xmlns.heb.com/ei/wineCompany"
+	 xmlns:ns17="http://xmlns.heb.com/ei/wineMaker"
+	 xmlns:ns18="http://xmlns.heb.com/ei/wineType"
+	 xmlns:ns19="http://xmlns.heb.com/ei/nutrition"
+	 xmlns:ns20="http://xmlns.heb.com/ei/ProductFulfillment"
+	 xmlns:ns21="http://xmlns.heb.com/ei/consumerPurchaseChoice"
+	 xmlns:ns22="http://xmlns.heb.com/ei/procurementHiearchy"
+	 targetNamespace="http://xmlns.heb.com/ei/productApiOut"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://xmlns.heb.com/ei/bkryBottomColor" schemaLocation="BkryBottomColor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/bkryThm" schemaLocation="BkryThm.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/bkryTopColor" schemaLocation="BkryTopColor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/bkryTxtColor" schemaLocation="BkryTxtColor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/cakeFilling" schemaLocation="CakeFilling.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/cakeFlavor" schemaLocation="CakeFlavor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/cakeFrost" schemaLocation="CakeFrost.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/categories" schemaLocation="Categories.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/floralAltColor" schemaLocation="FloralAltColor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/floralPrefColor" schemaLocation="FloralPrefColor.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/pickers" schemaLocation="Pickers.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/prodExtAttrib" schemaLocation="ProdExtAttrib.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/region" schemaLocation="Region.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/shape" schemaLocation="Shape.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/snipes" schemaLocation="Snipes.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/varietal" schemaLocation="Varietal.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/wineCompany" schemaLocation="WineCompany.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/wineMaker" schemaLocation="WineMaker.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/wineType" schemaLocation="WineType.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/nutrition" schemaLocation="Nutrition.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/ProductFulfillment" schemaLocation="ProductFulfillment.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/consumerPurchaseChoice" schemaLocation="ConsumerPurchaseChoice.xsd"/>
+	<xsd:import namespace="http://xmlns.heb.com/ei/procurementHiearchy" schemaLocation="procurementHiearchy.xsd"/>
+	<xsd:element name="esProducts" type="esProductType"/>
+	<xsd:complexType name="esProductType">
+	  <xsd:sequence>
+		<xsd:element name="size" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		<xsd:element name="nextPage" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    	<xsd:element name="totalProductsPages" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    	<xsd:element name="totalProductsRecords" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    	<xsd:element name="currentProductsPage" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    	<xsd:element name="transformedJSON" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    	<xsd:element maxOccurs="unbounded" minOccurs="0" name="products" type="oProductType"/>
+      </xsd:sequence>
+    </xsd:complexType>	
+	<xsd:complexType name="oProductType">
+		<xsd:sequence>
+			<xsd:element name="prodId" type="xsd:long" minOccurs="0"/>
+				<xsd:element name="upc" type="xsd:long" minOccurs="0"/>
+				<xsd:element name="secondaryUPCs" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="tagItemTypCd" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="tagItemId" type="xsd:long" minOccurs="0"/>
+				<xsd:element name="bonusPack" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="plu" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="type" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="showOnSite" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="averageWeight" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="privateLabel" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="volume" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="weightTolerance" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="storageTemp" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="minOrderValue" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="maxOrderValue" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="orderIncrement" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="isTaxable" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="threshold" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="brand" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="classCode" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="departmentCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="displayName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="description" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="longDescription" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="startDate" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="endDate" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="fixedRelatedProducts" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="childSku" type="xsd:long" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="pssDepartmentId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="pssDepartmentName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="salesChannel" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="posProductIds" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="alcoholPct" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="servingText" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="family" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="primoPick" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="ownBrand" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="safetyRegulatoryMessage" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="safetyWarning" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="defaultparentCategory" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="defaultSku" type="xsd:long" minOccurs="0"/>
+				<xsd:element name="vintage" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="foodPairingId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="upSells" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="template" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="fsa" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="wic" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="leb" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="foodStamp" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="heartHealthyClaim" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="lowSodiumClaim" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="fiberSourceClaim" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="lowSaturatedFatClaim" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="madeInTexas" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="gTIN" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="preparationInstructions" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="targetConsumerAge" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="tags" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="guaranteeImageCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="addOnProducts" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="isAddOnProduct" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="minOrderQty" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="fulfillerTypeCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="stateRestrictions" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="taxCategoryCD" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="taxQualifyingCondition" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="shippingException" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ageRestriction" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="subdepartmentCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="commodity" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="subcommodity" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ntrntlCodes" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="isLargeSurcharge" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="vendorID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="prop65" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="giftWrapEligible" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="overSizeFee" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ingredient" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="flowerGradeRanking" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="flowerGradeDesc" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="decorationPackage" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="bkryShapeCd" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="checkDigitUpc" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="customerFriendlySize" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="fulfillmentChnl" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="retlUntWd" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="retlUntLn" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="retlUntHt" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="retlUntWt" type="xsd:decimal" minOccurs="0"/>
+				<xsd:element name="pickerMap" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="specialHandler" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="optionsMap" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="stdUomCd" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="uomQty" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="imgUri" type="xsd:long" minOccurs="0"/>
+				<xsd:element name="minAgeRestriction" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="isSupplement" type="xsd:boolean" minOccurs="0"/>
+				<xsd:element name="prodGroupId" type="xsd:integer" minOccurs="0"/>
+				<xsd:element ref="ns20:productFulfillmentChnl" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns21:consumerPurchaseChoice" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns0:bkryBottomColor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns1:bkryThm" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns2:bkryTopColor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns3:bkryTxtColor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns4:cakeFilling" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns5:cakeFlavor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns6:cakeFrost" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns7:categories" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns8:floralAltColor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns9:floralPrefColor" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns10:pickers" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns12:region" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns13:shape" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns14:snipes" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns15:varietal" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns16:wineCompany" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns17:wineMaker" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns18:wineType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns19:nutritionFacts" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns11:prodExtAttrib" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ns22:procurementHiearchy" minOccurs="0" maxOccurs="unbounded"/>
+	</xsd:sequence>
+    </xsd:complexType>		
+</xsd:schema>

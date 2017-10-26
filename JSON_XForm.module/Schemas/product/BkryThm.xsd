@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/bkryThm"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/bkryThm"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="bkryThm">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="bkryThmId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="bkryThmName" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

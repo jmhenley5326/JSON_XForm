@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/pickers"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/pickers"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="pickers">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="choices" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="chc_id" type="xsd:string" minOccurs="0"/>
+							<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+							<xsd:element name="mandatory" type="xsd:boolean" minOccurs="0"/>
+							<xsd:element name="options" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="opt_id" type="xsd:string" minOccurs="0"/>
+										<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+										<xsd:element name="default" type="xsd:boolean" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

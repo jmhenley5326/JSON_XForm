@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpws:process exitOnStandardFault="no"
+    name="json_xform.module.JSON2XML_XML2JSON" suppressJoinFailure="yes"
+    targetNamespace="http://xmlns.example.com/20171024152705"
+    xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:bw="http://www.tibco.com/bw/xpath/bw-custom-functions"
+    xmlns:info="http://www.tibco.com/bw/process/info"
+    xmlns:ns="http://www.tibco.com/pe/EngineTypes"
+    xmlns:ns0="http://www.example.com/namespaces/tns/1508877358138"
+    xmlns:ns1="activity.jsonParser.input+45d8cbc8-c56e-437f-bc7c-e7701ddad9fe+ActivityInputType"
+    xmlns:ns2="http://xmlns.heb.com/ei/productApiOut"
+    xmlns:ns3="http://xmlns.heb.com/ei/productApi"
+    xmlns:ns4="activity.jsonRender.output+b844b44d-eab8-4422-944e-3ac14966938b+ActivityOutputType"
+    xmlns:ns5="http://xmlns.heb.com/ei/PRODUCTESQ"
+    xmlns:ns6="http://www.tibco.com/pe/WriteToLogActivitySchema"
+    xmlns:ns7="activity.jsonRender.output+dadf13b2-9516-4718-b694-4805aec07a84+ActivityOutputType"
+    xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+    xmlns:sca-bpel="http://docs.oasis-open.org/ns/opencsa/sca-bpel/200801"
+    xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"
+    xmlns:tibprop="http://ns.tibco.com/bw/property" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <tibex:Types>
+        <xs:schema attributeFormDefault="unqualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.tibco.com/pe/EngineTypes"
+            xmlns:tns="http://www.tibco.com/pe/EngineTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:complexType block="extension restriction"
+                final="extension restriction" name="ErrorReport">
+                <xs:sequence>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="StackTrace" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="Msg" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="FullClass" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="Class" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="ProcessStack" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="MsgCode" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="Data" type="tns:anydata"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType block="extension restriction"
+                final="extension restriction" name="OptionalErrorReport">
+                <xs:sequence>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0"
+                        name="StackTrace" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="Msg" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0"
+                        name="FullClass" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="Class" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0"
+                        name="ProcessStack" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="MsgCode" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="Data" type="tns:anydata"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType block="extension restriction"
+                final="extension restriction" name="FaultDetail">
+                <xs:sequence>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="ActivityName" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0" name="Data" type="tns:anydata"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="Msg" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="MsgCode" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="ProcessStack" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="StackTrace" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="FullClass" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="Class" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType block="extension restriction"
+                final="extension restriction" name="ProcessContext">
+                <xs:sequence>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="JobId" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="ApplicationName" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="EngineName" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" name="ProcessInstanceId" type="xs:string"/>
+                    <xs:element
+                        block="extension restriction substitution"
+                        form="unqualified" minOccurs="0"
+                        name="CustomJobId" type="xs:string"/>
+                    <!--xs:element name="RestartedFromCheckpoint" form="unqualified" block="extension restriction substitution" type="xs:boolean"/-->
+                    <!--xs:element minOccurs="0" maxOccurs="unbounded" name="TrackingInfo" form="unqualified" block="extension restriction substitution" type="xs:string"/-->
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType block="extension restriction"
+                final="extension restriction" name="anydata">
+                <xs:sequence>
+                    <xs:any namespace="##any" processContents="lax"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element block="extension restriction substitution"
+                final="extension restriction" name="OptionalErrorReport" type="tns:OptionalErrorReport"/>
+            <xs:element block="extension restriction substitution"
+                final="extension restriction" name="ErrorReport" type="tns:ErrorReport"/>
+            <xs:element block="extension restriction substitution"
+                final="extension restriction" name="FaultDetail" type="tns:FaultDetail"/>
+            <xs:element block="extension restriction substitution"
+                final="extension restriction" name="ProcessContext" type="tns:ProcessContext"/>
+            <xs:element block="extension restriction substitution"
+                final="extension restriction" name="CorrelationValue" type="xs:string"/>
+        </xs:schema>
+        <schema attributeFormDefault="unqualified"
+            elementFormDefault="unqualified"
+            targetNamespace="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions"
+            version="" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions">
+            <complexType name="ActivityExceptionType">
+                <sequence>
+                    <element name="msg" type="string"/>
+                    <element minOccurs="0" name="msgCode" type="string"/>
+                </sequence>
+            </complexType>
+            <element name="ActivityException" type="tns:ActivityExceptionType"/>
+            <complexType name="ActivityTimedOutExceptionType">
+                <complexContent>
+                    <extension base="tns:ActivityExceptionType"/>
+                </complexContent>
+            </complexType>
+            <element name="ActivityTimedOutException" type="tns:ActivityTimedOutExceptionType"/>
+        </schema>
+        <schema elementFormDefault="unqualified"
+            targetNamespace="activity.jsonParser.input+45d8cbc8-c56e-437f-bc7c-e7701ddad9fe+ActivityInputType"
+            xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="activity.jsonParser.input+45d8cbc8-c56e-437f-bc7c-e7701ddad9fe+ActivityInputType">
+            <complexType name="ActivityInputClassType">
+                <sequence>
+                    <element maxOccurs="1" minOccurs="1"
+                        name="jsonString" type="string"/>
+                </sequence>
+            </complexType>
+            <element name="ActivityInputClass" type="tns:ActivityInputClassType"/>
+        </schema>
+        <xs:schema attributeFormDefault="unqualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.tibco.com/pe/WriteToLogActivitySchema"
+            xmlns:tns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:complexType name="LogParametersType">
+                <xs:sequence>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="msgCode" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="loggerName" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="logLevel" type="xs:string"/>
+                    <xs:element form="unqualified" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ActivityInput" type="tns:LogParametersType"/>
+        </xs:schema>
+        <schema
+            targetNamespace="activity.jsonRender.output+dadf13b2-9516-4718-b694-4805aec07a84+ActivityOutputType"
+            xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="activity.jsonRender.output+dadf13b2-9516-4718-b694-4805aec07a84+ActivityOutputType">
+            <complexType name="ActivityOutputClassType">
+                <sequence>
+                    <element maxOccurs="1" minOccurs="1"
+                        name="jsonString" type="string"/>
+                </sequence>
+            </complexType>
+            <element name="ActivityOutputClass" type="tns:ActivityOutputClassType"/>
+        </schema>
+        <wsdl:definitions
+            targetNamespace="http://xmlns.example.com/20171024152705"
+            xmlns:tns="http://xmlns.example.com/20171024152705"
+            xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+            xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+    </tibex:Types>
+    <tibex:ProcessInfo callable="true" createdBy="jasonhenley"
+        createdOn="Tue Oct 24 15:27:05 CDT 2017" description=""
+        extraErrorVars="false" modifiers="public"
+        productVersion="2.3.1 V22 2017-08-17" scalable="true"
+        singleton="true" stateless="true" type="IT"/>
+    <tibex:ProcessInterface context=""
+        input="{http://www.example.com/namespaces/tns/1508877358138}Element" output="{http://www.example.com/namespaces/tns/1508877358138}Element"/>
+    <tibex:ProcessTemplateConfigurations/>
+    <notation:Diagram measurementUnit="Pixel" type="BWProcess"
+        xmlns:bwnotation="http://tns.tibco.com/bw/runtime/BWNotation"
+        xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <children type="2001">
+            <children type="5001"/>
+            <children type="3002">
+                <styles xsi:type="notation:SortingStyle"/>
+                <styles xsi:type="notation:FilteringStyle"/>
+            </children>
+            <children type="3003">
+                <styles xsi:type="notation:SortingStyle"/>
+                <styles xsi:type="notation:FilteringStyle"/>
+            </children>
+            <children type="3004">
+                <children type="4018">
+                    <children type="3018">
+                        <children type="4020">
+                            <children type="3020">
+                                <children type="4005">
+                                    <children type="3007">
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.0"/>
+                                    <layoutConstraint x="14"
+                                    xsi:type="notation:Bounds" y="126"/>
+                                    </children>
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.1"/>
+                                    <layoutConstraint x="468"
+                                    xsi:type="notation:Bounds" y="126"/>
+                                    </children>
+                                    <children type="4002 bw.restjson.JsonParser">
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.2"/>
+                                    <layoutConstraint
+                                    height="40" width="40"
+                                    x="121"
+                                    xsi:type="notation:Bounds" y="126"/>
+                                    </children>
+                                    <children type="4002 bw.generalactivities.log">
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.3"/>
+                                    <layoutConstraint
+                                    height="40" width="40"
+                                    x="377"
+                                    xsi:type="notation:Bounds" y="50"/>
+                                    </children>
+                                    <children type="4002">
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <children type="4017">
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <layoutConstraint xsi:type="notation:Bounds"/>
+                                    </children>
+                                    <styles
+                                    fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles
+                                    backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <element href="//0/@process/@activity/@activity/@activities.4"/>
+                                    <layoutConstraint x="213"
+                                    xsi:type="notation:Bounds" y="126"/>
+                                    </children>
+                                    <styles xsi:type="notation:DrawerStyle"/>
+                                    <styles xsi:type="notation:SortingStyle"/>
+                                    <styles xsi:type="notation:FilteringStyle"/>
+                                    <element href="//0/@process/@activity/@activity"/>
+                                    </children>
+                                    <styles fontName=".SF NS Text"
+                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
+                                    <styles backgroundColor="16777215"
+                                    gradientEndColor="50431"
+                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
+                                    <styles xsi:type="bwnotation:ResizingStyle"/>
+                                    <element href="//0/@process/@activity/@activity"/>
+                                    <layoutConstraint height="384"
+                                    width="601" xsi:type="notation:Bounds"/>
+                                </children>
+                                <styles xsi:type="notation:SortingStyle"/>
+                                <styles xsi:type="notation:FilteringStyle"/>
+                            </children>
+                            <styles fontName=".SF NS Text" lineColor="0" xsi:type="notation:ShapeStyle"/>
+                            <styles xsi:type="bwnotation:BackgroundStyle"/>
+                            <styles xsi:type="bwnotation:ResizingStyle"/>
+                            <element href="//0/@process/@activity"/>
+                            <layoutConstraint height="384" width="604" xsi:type="notation:Bounds"/>
+                        </children>
+                        <styles xsi:type="notation:SortingStyle"/>
+                        <styles xsi:type="notation:FilteringStyle"/>
+                        <element href="//0/@process/@activity"/>
+                    </children>
+                    <styles fontName=".SF NS Text" lineColor="0" xsi:type="notation:ShapeStyle"/>
+                    <styles xsi:type="bwnotation:BackgroundStyle"/>
+                    <styles xsi:type="bwnotation:ResizingStyle"/>
+                    <element href="//0/@process/@activity"/>
+                    <layoutConstraint height="408" width="604" x="1"
+                        xsi:type="notation:Bounds" y="1"/>
+                </children>
+                <styles xsi:type="notation:SortingStyle"/>
+                <styles xsi:type="notation:FilteringStyle"/>
+                <element href="//0/@process"/>
+            </children>
+            <styles fontName=".SF NS Text" lineColor="0" xsi:type="notation:ShapeStyle"/>
+            <element href="//0/@process"/>
+            <layoutConstraint height="460" width="946" xsi:type="notation:Bounds"/>
+        </children>
+        <styles xsi:type="notation:DiagramStyle"/>
+        <element href="//0"/>
+        <edges
+            source="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0"
+            target="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName=".SF NS Text" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@links/@children.0"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.4"
+            target="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.3" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName=".SF NS Text" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@links/@children.1"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.4"
+            target="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName=".SF NS Text" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@links/@children.2"/>
+            <bendpoints points="[25, 0, -161, 0]$[162, 0, -24, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+        <edges
+            source="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2"
+            target="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.4" type="4006">
+            <children type="6002">
+                <layoutConstraint xsi:type="notation:Location" y="40"/>
+            </children>
+            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
+            <styles fontName=".SF NS Text" xsi:type="notation:FontStyle"/>
+            <element href="//0/@process/@activity/@activity/@links/@children.3"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
+        </edges>
+    </notation:Diagram>
+    <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.example.com/namespaces/tns/1508877358138"/>
+    <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://xmlns.heb.com/ei/productApi"/>
+    <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://xmlns.heb.com/ei/productApiOut"/>
+    <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://xmlns.heb.com/ei/PRODUCTESQ"/>
+    <bpws:variables>
+        <bpws:variable element="ns:ProcessContext"
+            name="_processContext" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:Element" name="Start"
+            sca-bpel:internal="true" tibex:parameter="in"/>
+        <bpws:variable element="ns1:ActivityInputClass"
+            name="ParseJSON-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns5:Query" name="ParseJSON" sca-bpel:internal="true"/>
+        <bpws:variable element="ns6:ActivityInput" name="Log-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns2:esProducts" name="RenderJSON-input" sca-bpel:internal="true"/>
+        <bpws:variable element="ns7:ActivityOutputClass"
+            name="RenderJSON" sca-bpel:internal="true"/>
+        <bpws:variable element="ns0:Element" name="End-input"
+            sca-bpel:internal="true" tibex:parameter="out"/>
+    </bpws:variables>
+    <bpws:extensions>
+        <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
+        <bpws:extension mustUnderstand="no" namespace="http://www.tibco.com/bw/process/info"/>
+        <bpws:extension mustUnderstand="no" namespace="http://docs.oasis-open.org/ns/opencsa/sca-bpel/200801"/>
+        <bpws:extension mustUnderstand="no" namespace="http://docs.oasis-open.org/ns/opencsa/sca/200912"/>
+        <bpws:extension mustUnderstand="no" namespace="http://ns.tibco.com/bw/property"/>
+        <bpws:extension mustUnderstand="no" namespace="http://www.tibco.com/bpel/2007/extensions"/>
+    </bpws:extensions>
+    <bpws:scope name="scope">
+        <bpws:flow name="flow">
+            <bpws:links>
+                <bpws:link name="StartToEnd" tibex:linkType="SUCCESS"/>
+                <bpws:link name="RenderJSON1ToLog" tibex:linkType="SUCCESSWITHCONDITION"/>
+                <bpws:link name="RenderJSON1ToEnd" tibex:linkType="SUCCESS"/>
+                <bpws:link name="ParseJSONToRenderJSON1" tibex:linkType="SUCCESS"/>
+            </bpws:links>
+            <bpws:extensionActivity>
+                <tibex:receiveEvent createInstance="yes"
+                    eventTimeout="0" name="Start"
+                    tibex:xpdlId="8f6499d8-870c-408b-9428-2b84cd2cb111"
+                    variable="Start" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:sources>
+                        <bpws:source linkName="StartToEnd"/>
+                    </bpws:sources>
+                    <tibex:eventSource>
+                        <tibex:StartEvent xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
+                    </tibex:eventSource>
+                </tibex:receiveEvent>
+            </bpws:extensionActivity>
+            <bpws:extensionActivity>
+                <tibex:activityExtension
+                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.example.com/namespaces/tns/1508877358138&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;RenderJSON&quot;/>&lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&lt;tns:Element>&lt;tns:json>&lt;xsl:value-of select=&quot;$RenderJSON/jsonString&quot;/>&lt;/tns:json>&lt;/tns:Element>&lt;/xsl:template>&lt;/xsl:stylesheet>"
+                    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
+                    inputVariable="End-input" name="End"
+                    tibex:xpdlId="e87ca724-35a9-46f5-a061-749d4562adc0" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:targets>
+                        <bpws:target linkName="RenderJSON1ToEnd"/>
+                    </bpws:targets>
+                    <tibex:inputBindings>
+                        <tibex:inputBinding
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.example.com/namespaces/tns/1508877358138&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;RenderJSON&quot;/>&lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&lt;tns:Element>&lt;tns:json>&lt;xsl:value-of select=&quot;$RenderJSON/jsonString&quot;/>&lt;/tns:json>&lt;/tns:Element>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                    </tibex:inputBindings>
+                    <tibex:config>
+                        <bwext:BWActivity
+                            activityTypeID="bw.internal.end"
+                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                            xmlns:internalactivities="http://ns.tibco.com/bw/core/internalactivity" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <activityConfig>
+                                <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/core/internalactivity#//End"/>
+                                    <value xsi:type="internalactivities:End"/>
+                                </properties>
+                            </activityConfig>
+                        </bwext:BWActivity>
+                    </tibex:config>
+                </tibex:activityExtension>
+            </bpws:extensionActivity>
+            <bpws:extensionActivity>
+                <tibex:activityExtension
+                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;activity.jsonParser.input+45d8cbc8-c56e-437f-bc7c-e7701ddad9fe+ActivityInputType&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1508877358138&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Start&quot;/>&lt;xsl:template name=&quot;ParseJSON-input&quot; match=&quot;/&quot;>&lt;tns:ActivityInputClass>&lt;jsonString>&lt;xsl:value-of select=&quot;$Start/tns1:json&quot;/>&lt;/jsonString>&lt;/tns:ActivityInputClass>&lt;/xsl:template>&lt;/xsl:stylesheet>"
+                    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
+                    inputVariable="ParseJSON-input" name="ParseJSON"
+                    outputVariable="ParseJSON"
+                    tibex:xpdlId="45d8cbc8-c56e-437f-bc7c-e7701ddad9fe" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:targets>
+                        <bpws:target linkName="StartToEnd"/>
+                    </bpws:targets>
+                    <bpws:sources>
+                        <bpws:source linkName="ParseJSONToRenderJSON1"/>
+                    </bpws:sources>
+                    <tibex:inputBindings>
+                        <tibex:inputBinding
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;activity.jsonParser.input+45d8cbc8-c56e-437f-bc7c-e7701ddad9fe+ActivityInputType&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1508877358138&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Start&quot;/>&lt;xsl:template name=&quot;ParseJSON-input&quot; match=&quot;/&quot;>&lt;tns:ActivityInputClass>&lt;jsonString>&lt;xsl:value-of select=&quot;$Start/tns1:json&quot;/>&lt;/jsonString>&lt;/tns:ActivityInputClass>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                    </tibex:inputBindings>
+                    <tibex:config>
+                        <bwext:BWActivity
+                            activityTypeID="bw.restjson.JsonParser"
+                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                            xmlns:restjson="http://ns.tibco.com/bw/palette/restjson" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <activityConfig>
+                                <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/restjson#//JsonParser"/>
+                                    <value hasMultipleNamespaces="true"
+                                    jsonInputStyle="None"
+                                    schemaType="Xsd" xsi:type="restjson:JsonParser">
+                                    <outputEditorElement href="platform:/resource/JSON_XForm.module/Schemas/product/ProductApiES_Query.xsd#//Query;XSDElementDeclaration=1"/>
+                                    </value>
+                                </properties>
+                            </activityConfig>
+                        </bwext:BWActivity>
+                    </tibex:config>
+                </tibex:activityExtension>
+            </bpws:extensionActivity>
+            <bpws:extensionActivity>
+                <tibex:activityExtension
+                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;RenderJSON&quot;/>&#xa;    &lt;xsl:template name=&quot;Log-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns:ActivityInput>&#xa;            &lt;message>&#xa;                &lt;xsl:value-of select=&quot;$RenderJSON/jsonString&quot;/>&#xa;            &lt;/message>&#xa;        &lt;/tns:ActivityInput>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>"
+                    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
+                    inputVariable="Log-input" name="Log"
+                    tibex:xpdlId="826c6c7c-ca3c-4ef3-8cb1-4b951d00d2ea" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:targets>
+                        <bpws:target linkName="RenderJSON1ToLog"/>
+                    </bpws:targets>
+                    <tibex:inputBindings>
+                        <tibex:inputBinding
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;RenderJSON&quot;/>&#xa;    &lt;xsl:template name=&quot;Log-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns:ActivityInput>&#xa;            &lt;message>&#xa;                &lt;xsl:value-of select=&quot;$RenderJSON/jsonString&quot;/>&#xa;            &lt;/message>&#xa;        &lt;/tns:ActivityInput>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                    </tibex:inputBindings>
+                    <tibex:config>
+                        <bwext:BWActivity
+                            activityTypeID="bw.generalactivities.log"
+                            version="6.0.0.001"
+                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                            xmlns:generalactivities="http://ns.tibco.com/bw/palette/generalactivities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <activityConfig>
+                                <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/generalactivities#//Log"/>
+                                    <value role="Info"
+                                    suppressJobInfo="true" xsi:type="generalactivities:Log"/>
+                                </properties>
+                            </activityConfig>
+                        </bwext:BWActivity>
+                    </tibex:config>
+                </tibex:activityExtension>
+            </bpws:extensionActivity>
+            <bpws:extensionActivity>
+                <tibex:activityExtension
+                    expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:ns=&quot;http://xmlns.heb.com/ei/PRODUCTESQ&quot; xmlns:ns1=&quot;http://xmlns.heb.com/ei/productApiOut&quot; xmlns:ns2=&quot;http://xmlns.heb.com/ei/ProductFulfillment&quot; xmlns:ns3=&quot;http://xmlns.heb.com/ei/consumerPurchaseChoice&quot; xmlns:ns4=&quot;http://xmlns.heb.com/ei/bkryBottomColor&quot; xmlns:ns5=&quot;http://xmlns.heb.com/ei/bkryThm&quot; xmlns:ns6=&quot;http://xmlns.heb.com/ei/bkryTopColor&quot; xmlns:ns7=&quot;http://xmlns.heb.com/ei/bkryTxtColor&quot; xmlns:ns8=&quot;http://xmlns.heb.com/ei/cakeFilling&quot; xmlns:ns9=&quot;http://xmlns.heb.com/ei/cakeFlavor&quot; xmlns:ns10=&quot;http://xmlns.heb.com/ei/cakeFrost&quot; xmlns:ns11=&quot;http://xmlns.heb.com/ei/categories&quot; xmlns:ns12=&quot;http://xmlns.heb.com/ei/floralAltColor&quot; xmlns:ns13=&quot;http://xmlns.heb.com/ei/floralPrefColor&quot; xmlns:ns14=&quot;http://xmlns.heb.com/ei/pickers&quot; xmlns:ns15=&quot;http://xmlns.heb.com/ei/region&quot; xmlns:ns16=&quot;http://xmlns.heb.com/ei/shape&quot; xmlns:ns17=&quot;http://xmlns.heb.com/ei/snipes&quot; xmlns:ns18=&quot;http://xmlns.heb.com/ei/varietal&quot; xmlns:ns19=&quot;http://xmlns.heb.com/ei/wineCompany&quot; xmlns:ns20=&quot;http://xmlns.heb.com/ei/wineMaker&quot; xmlns:ns21=&quot;http://xmlns.heb.com/ei/wineType&quot; xmlns:ns22=&quot;http://xmlns.heb.com/ei/nutrition&quot; xmlns:ns23=&quot;http://xmlns.heb.com/ei/prodExtAttrib&quot; xmlns:ns24=&quot;http://xmlns.heb.com/ei/procurementHiearchy&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;ParseJSON&quot;/>&lt;xsl:template name=&quot;RenderJSON1-input&quot; match=&quot;/&quot;>&lt;ns1:esProducts>&lt;xsl:for-each select=&quot;$ParseJSON/ns:hits/ns:hits/ns:_source&quot;>&lt;ns1:products>&lt;xsl:if test=&quot;ns:prodId&quot;>&lt;ns1:prodId>&lt;xsl:value-of select=&quot;ns:prodId&quot;/>&lt;/ns1:prodId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:upc&quot;>&lt;ns1:upc>&lt;xsl:value-of select=&quot;ns:upc&quot;/>&lt;/ns1:upc>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:secondaryUPCs&quot;>&lt;ns1:secondaryUPCs>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:secondaryUPCs>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:tagItemTypCd&quot;>&lt;ns1:tagItemTypCd>&lt;xsl:value-of select=&quot;ns:tagItemTypCd&quot;/>&lt;/ns1:tagItemTypCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:tagItemId&quot;>&lt;ns1:tagItemId>&lt;xsl:value-of select=&quot;ns:tagItemId&quot;/>&lt;/ns1:tagItemId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:bonusPack&quot;>&lt;ns1:bonusPack>&lt;xsl:value-of select=&quot;ns:bonusPack&quot;/>&lt;/ns1:bonusPack>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:plu&quot;>&lt;ns1:plu>&lt;xsl:value-of select=&quot;ns:plu&quot;/>&lt;/ns1:plu>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:type&quot;>&lt;ns1:type>&lt;xsl:value-of select=&quot;ns:type&quot;/>&lt;/ns1:type>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:showOnSite&quot;>&lt;ns1:showOnSite>&lt;xsl:value-of select=&quot;ns:showOnSite&quot;/>&lt;/ns1:showOnSite>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:averageWeight&quot;>&lt;ns1:averageWeight>&lt;xsl:value-of select=&quot;ns:averageWeight&quot;/>&lt;/ns1:averageWeight>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:privateLabel&quot;>&lt;ns1:privateLabel>&lt;xsl:value-of select=&quot;ns:privateLabel&quot;/>&lt;/ns1:privateLabel>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:volume&quot;>&lt;ns1:volume>&lt;xsl:value-of select=&quot;ns:volume&quot;/>&lt;/ns1:volume>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:weightTolerance&quot;>&lt;ns1:weightTolerance>&lt;xsl:value-of select=&quot;ns:weightTolerance&quot;/>&lt;/ns1:weightTolerance>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:storageTemp&quot;>&lt;ns1:storageTemp>&lt;xsl:value-of select=&quot;ns:storageTemp&quot;/>&lt;/ns1:storageTemp>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minOrderValue&quot;>&lt;ns1:minOrderValue>&lt;xsl:value-of select=&quot;ns:minOrderValue&quot;/>&lt;/ns1:minOrderValue>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:maxOrderValue&quot;>&lt;ns1:maxOrderValue>&lt;xsl:value-of select=&quot;ns:maxOrderValue&quot;/>&lt;/ns1:maxOrderValue>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:orderIncrement&quot;>&lt;ns1:orderIncrement>&lt;xsl:value-of select=&quot;ns:orderIncrement&quot;/>&lt;/ns1:orderIncrement>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isTaxable&quot;>&lt;ns1:isTaxable>&lt;xsl:value-of select=&quot;ns:isTaxable&quot;/>&lt;/ns1:isTaxable>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:threshold&quot;>&lt;ns1:threshold>&lt;xsl:value-of select=&quot;ns:threshold&quot;/>&lt;/ns1:threshold>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:brand&quot;>&lt;ns1:brand>&lt;xsl:value-of select=&quot;ns:brand&quot;/>&lt;/ns1:brand>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:classCode&quot;>&lt;ns1:classCode>&lt;xsl:value-of select=&quot;ns:classCode&quot;/>&lt;/ns1:classCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:departmentCode&quot;>&lt;ns1:departmentCode>&lt;xsl:value-of select=&quot;ns:departmentCode&quot;/>&lt;/ns1:departmentCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:displayName&quot;>&lt;ns1:displayName>&lt;xsl:value-of select=&quot;ns:displayName&quot;/>&lt;/ns1:displayName>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:description&quot;>&lt;ns1:description>&lt;xsl:value-of select=&quot;ns:description&quot;/>&lt;/ns1:description>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:longDescription&quot;>&lt;ns1:longDescription>&lt;xsl:value-of select=&quot;ns:longDescription&quot;/>&lt;/ns1:longDescription>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:startDate&quot;>&lt;ns1:startDate>&lt;xsl:value-of select=&quot;ns:startDate&quot;/>&lt;/ns1:startDate>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:endDate&quot;>&lt;ns1:endDate>&lt;xsl:value-of select=&quot;ns:endDate&quot;/>&lt;/ns1:endDate>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:fixedRelatedProducts&quot;>&lt;ns1:fixedRelatedProducts>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:fixedRelatedProducts>&lt;/xsl:for-each>&lt;xsl:for-each select=&quot;ns:childSku&quot;>&lt;ns1:childSku>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:childSku>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:pssDepartmentId&quot;>&lt;ns1:pssDepartmentId>&lt;xsl:value-of select=&quot;ns:pssDepartmentId&quot;/>&lt;/ns1:pssDepartmentId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:pssDepartmentName&quot;>&lt;ns1:pssDepartmentName>&lt;xsl:value-of select=&quot;ns:pssDepartmentName&quot;/>&lt;/ns1:pssDepartmentName>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:salesChannel&quot;>&lt;ns1:salesChannel>&lt;xsl:value-of select=&quot;ns:salesChannel&quot;/>&lt;/ns1:salesChannel>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:posProductIds&quot;>&lt;ns1:posProductIds>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:posProductIds>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:alcoholPct&quot;>&lt;ns1:alcoholPct>&lt;xsl:value-of select=&quot;ns:alcoholPct&quot;/>&lt;/ns1:alcoholPct>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:servingText&quot;>&lt;ns1:servingText>&lt;xsl:value-of select=&quot;ns:servingText&quot;/>&lt;/ns1:servingText>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:family&quot;>&lt;ns1:family>&lt;xsl:value-of select=&quot;ns:family&quot;/>&lt;/ns1:family>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:primoPick&quot;>&lt;ns1:primoPick>&lt;xsl:value-of select=&quot;ns:primoPick&quot;/>&lt;/ns1:primoPick>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ownBrand&quot;>&lt;ns1:ownBrand>&lt;xsl:value-of select=&quot;ns:ownBrand&quot;/>&lt;/ns1:ownBrand>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:safetyRegulatoryMessage&quot;>&lt;ns1:safetyRegulatoryMessage>&lt;xsl:value-of select=&quot;ns:safetyRegulatoryMessage&quot;/>&lt;/ns1:safetyRegulatoryMessage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:safetyWarning&quot;>&lt;ns1:safetyWarning>&lt;xsl:value-of select=&quot;ns:safetyWarning&quot;/>&lt;/ns1:safetyWarning>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:defaultparentCategory&quot;>&lt;ns1:defaultparentCategory>&lt;xsl:value-of select=&quot;ns:defaultparentCategory&quot;/>&lt;/ns1:defaultparentCategory>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:defaultSku&quot;>&lt;ns1:defaultSku>&lt;xsl:value-of select=&quot;ns:defaultSku&quot;/>&lt;/ns1:defaultSku>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:vintage&quot;>&lt;ns1:vintage>&lt;xsl:value-of select=&quot;ns:vintage&quot;/>&lt;/ns1:vintage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:foodPairingId&quot;>&lt;ns1:foodPairingId>&lt;xsl:value-of select=&quot;ns:foodPairingId&quot;/>&lt;/ns1:foodPairingId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:upSells&quot;>&lt;ns1:upSells>&lt;xsl:value-of select=&quot;ns:upSells&quot;/>&lt;/ns1:upSells>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:gender&quot;>&lt;ns1:gender>&lt;xsl:value-of select=&quot;ns:gender&quot;/>&lt;/ns1:gender>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:template&quot;>&lt;ns1:template>&lt;xsl:value-of select=&quot;ns:template&quot;/>&lt;/ns1:template>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fsa&quot;>&lt;ns1:fsa>&lt;xsl:value-of select=&quot;ns:fsa&quot;/>&lt;/ns1:fsa>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:wic&quot;>&lt;ns1:wic>&lt;xsl:value-of select=&quot;ns:wic&quot;/>&lt;/ns1:wic>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:leb&quot;>&lt;ns1:leb>&lt;xsl:value-of select=&quot;ns:leb&quot;/>&lt;/ns1:leb>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:foodStamp&quot;>&lt;ns1:foodStamp>&lt;xsl:value-of select=&quot;ns:foodStamp&quot;/>&lt;/ns1:foodStamp>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:heartHealthyClaim&quot;>&lt;ns1:heartHealthyClaim>&lt;xsl:value-of select=&quot;ns:heartHealthyClaim&quot;/>&lt;/ns1:heartHealthyClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:lowSodiumClaim&quot;>&lt;ns1:lowSodiumClaim>&lt;xsl:value-of select=&quot;ns:lowSodiumClaim&quot;/>&lt;/ns1:lowSodiumClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fiberSourceClaim&quot;>&lt;ns1:fiberSourceClaim>&lt;xsl:value-of select=&quot;ns:fiberSourceClaim&quot;/>&lt;/ns1:fiberSourceClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:lowSaturatedFatClaim&quot;>&lt;ns1:lowSaturatedFatClaim>&lt;xsl:value-of select=&quot;ns:lowSaturatedFatClaim&quot;/>&lt;/ns1:lowSaturatedFatClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:madeInTexas&quot;>&lt;ns1:madeInTexas>&lt;xsl:value-of select=&quot;ns:madeInTexas&quot;/>&lt;/ns1:madeInTexas>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:gTIN&quot;>&lt;ns1:gTIN>&lt;xsl:value-of select=&quot;ns:gTIN&quot;/>&lt;/ns1:gTIN>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:preparationInstructions&quot;>&lt;ns1:preparationInstructions>&lt;xsl:value-of select=&quot;ns:preparationInstructions&quot;/>&lt;/ns1:preparationInstructions>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:targetConsumerAge&quot;>&lt;ns1:targetConsumerAge>&lt;xsl:value-of select=&quot;ns:targetConsumerAge&quot;/>&lt;/ns1:targetConsumerAge>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:tags&quot;>&lt;ns1:tags>&lt;xsl:value-of select=&quot;ns:tags&quot;/>&lt;/ns1:tags>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:guaranteeImageCode&quot;>&lt;ns1:guaranteeImageCode>&lt;xsl:value-of select=&quot;ns:guaranteeImageCode&quot;/>&lt;/ns1:guaranteeImageCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:addOnProducts&quot;>&lt;ns1:addOnProducts>&lt;xsl:value-of select=&quot;ns:addOnProducts&quot;/>&lt;/ns1:addOnProducts>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isAddOnProduct&quot;>&lt;ns1:isAddOnProduct>&lt;xsl:value-of select=&quot;ns:isAddOnProduct&quot;/>&lt;/ns1:isAddOnProduct>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minOrderQty&quot;>&lt;ns1:minOrderQty>&lt;xsl:value-of select=&quot;ns:minOrderQty&quot;/>&lt;/ns1:minOrderQty>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fulfillerTypeCode&quot;>&lt;ns1:fulfillerTypeCode>&lt;xsl:value-of select=&quot;ns:fulfillerTypeCode&quot;/>&lt;/ns1:fulfillerTypeCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:stateRestrictions&quot;>&lt;ns1:stateRestrictions>&lt;xsl:value-of select=&quot;ns:stateRestrictions&quot;/>&lt;/ns1:stateRestrictions>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:taxCategoryCD&quot;>&lt;ns1:taxCategoryCD>&lt;xsl:value-of select=&quot;ns:taxCategoryCD&quot;/>&lt;/ns1:taxCategoryCD>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:taxQualifyingCondition&quot;>&lt;ns1:taxQualifyingCondition>&lt;xsl:value-of select=&quot;ns:taxQualifyingCondition&quot;/>&lt;/ns1:taxQualifyingCondition>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:shippingException&quot;>&lt;ns1:shippingException>&lt;xsl:value-of select=&quot;ns:shippingException&quot;/>&lt;/ns1:shippingException>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ageRestriction&quot;>&lt;ns1:ageRestriction>&lt;xsl:value-of select=&quot;ns:ageRestriction&quot;/>&lt;/ns1:ageRestriction>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:subdepartmentCode&quot;>&lt;ns1:subdepartmentCode>&lt;xsl:value-of select=&quot;ns:subdepartmentCode&quot;/>&lt;/ns1:subdepartmentCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:commodity&quot;>&lt;ns1:commodity>&lt;xsl:value-of select=&quot;ns:commodity&quot;/>&lt;/ns1:commodity>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:subcommodity&quot;>&lt;ns1:subcommodity>&lt;xsl:value-of select=&quot;ns:subcommodity&quot;/>&lt;/ns1:subcommodity>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ntrntlCodes&quot;>&lt;ns1:ntrntlCodes>&lt;xsl:value-of select=&quot;ns:ntrntlCodes&quot;/>&lt;/ns1:ntrntlCodes>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isLargeSurcharge&quot;>&lt;ns1:isLargeSurcharge>&lt;xsl:value-of select=&quot;ns:isLargeSurcharge&quot;/>&lt;/ns1:isLargeSurcharge>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:vendorID&quot;>&lt;ns1:vendorID>&lt;xsl:value-of select=&quot;ns:vendorID&quot;/>&lt;/ns1:vendorID>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:prop65&quot;>&lt;ns1:prop65>&lt;xsl:value-of select=&quot;ns:prop65&quot;/>&lt;/ns1:prop65>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:giftWrapEligible&quot;>&lt;ns1:giftWrapEligible>&lt;xsl:value-of select=&quot;ns:giftWrapEligible&quot;/>&lt;/ns1:giftWrapEligible>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:overSizeFee&quot;>&lt;ns1:overSizeFee>&lt;xsl:value-of select=&quot;ns:overSizeFee&quot;/>&lt;/ns1:overSizeFee>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ingredient&quot;>&lt;ns1:ingredient>&lt;xsl:value-of select=&quot;ns:ingredient&quot;/>&lt;/ns1:ingredient>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:flowerGradeRanking&quot;>&lt;ns1:flowerGradeRanking>&lt;xsl:value-of select=&quot;ns:flowerGradeRanking&quot;/>&lt;/ns1:flowerGradeRanking>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:flowerGradeDesc&quot;>&lt;ns1:flowerGradeDesc>&lt;xsl:value-of select=&quot;ns:flowerGradeDesc&quot;/>&lt;/ns1:flowerGradeDesc>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:decorationPackage&quot;>&lt;ns1:decorationPackage>&lt;xsl:value-of select=&quot;ns:decorationPackage&quot;/>&lt;/ns1:decorationPackage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:bkryShapeCd&quot;>&lt;ns1:bkryShapeCd>&lt;xsl:value-of select=&quot;ns:bkryShapeCd&quot;/>&lt;/ns1:bkryShapeCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:checkDigitUpc&quot;>&lt;ns1:checkDigitUpc>&lt;xsl:value-of select=&quot;ns:checkDigitUpc&quot;/>&lt;/ns1:checkDigitUpc>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:customerFriendlySize&quot;>&lt;ns1:customerFriendlySize>&lt;xsl:value-of select=&quot;ns:customerFriendlySize&quot;/>&lt;/ns1:customerFriendlySize>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fulfillmentChnl&quot;>&lt;ns1:fulfillmentChnl>&lt;xsl:value-of select=&quot;ns:fulfillmentChnl&quot;/>&lt;/ns1:fulfillmentChnl>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntWd&quot;>&lt;ns1:retlUntWd>&lt;xsl:value-of select=&quot;ns:retlUntWd&quot;/>&lt;/ns1:retlUntWd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntLn&quot;>&lt;ns1:retlUntLn>&lt;xsl:value-of select=&quot;ns:retlUntLn&quot;/>&lt;/ns1:retlUntLn>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntHt&quot;>&lt;ns1:retlUntHt>&lt;xsl:value-of select=&quot;ns:retlUntHt&quot;/>&lt;/ns1:retlUntHt>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntWt&quot;>&lt;ns1:retlUntWt>&lt;xsl:value-of select=&quot;ns:retlUntWt&quot;/>&lt;/ns1:retlUntWt>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:pickerMap&quot;>&lt;ns1:pickerMap>&lt;xsl:value-of select=&quot;ns:pickerMap&quot;/>&lt;/ns1:pickerMap>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:specialHandler&quot;>&lt;ns1:specialHandler>&lt;xsl:value-of select=&quot;ns:specialHandler&quot;/>&lt;/ns1:specialHandler>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:optionsMap&quot;>&lt;ns1:optionsMap>&lt;xsl:value-of select=&quot;ns:optionsMap&quot;/>&lt;/ns1:optionsMap>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:stdUomCd&quot;>&lt;ns1:stdUomCd>&lt;xsl:value-of select=&quot;ns:stdUomCd&quot;/>&lt;/ns1:stdUomCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:uomQty&quot;>&lt;ns1:uomQty>&lt;xsl:value-of select=&quot;ns:uomQty&quot;/>&lt;/ns1:uomQty>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:imgUri&quot;>&lt;ns1:imgUri>&lt;xsl:value-of select=&quot;ns:imgUri&quot;/>&lt;/ns1:imgUri>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minAgeRestriction&quot;>&lt;ns1:minAgeRestriction>&lt;xsl:value-of select=&quot;ns:minAgeRestriction&quot;/>&lt;/ns1:minAgeRestriction>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isSupplement&quot;>&lt;ns1:isSupplement>&lt;xsl:value-of select=&quot;ns:isSupplement&quot;/>&lt;/ns1:isSupplement>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:prodGroupId&quot;>&lt;ns1:prodGroupId>&lt;xsl:value-of select=&quot;ns:prodGroupId&quot;/>&lt;/ns1:prodGroupId>&lt;/xsl:if>&lt;xsl:copy-of select=&quot;ns2:productFulfillmentChnl&quot;/>&lt;xsl:copy-of select=&quot;ns3:consumerPurchaseChoice&quot;/>&lt;xsl:copy-of select=&quot;ns4:bkryBottomColor&quot;/>&lt;xsl:copy-of select=&quot;ns5:bkryThm&quot;/>&lt;xsl:copy-of select=&quot;ns6:bkryTopColor&quot;/>&lt;xsl:copy-of select=&quot;ns7:bkryTxtColor&quot;/>&lt;xsl:copy-of select=&quot;ns8:cakeFilling&quot;/>&lt;xsl:copy-of select=&quot;ns9:cakeFlavor&quot;/>&lt;xsl:copy-of select=&quot;ns10:cakeFrost&quot;/>&lt;xsl:copy-of select=&quot;ns11:categories&quot;/>&lt;xsl:copy-of select=&quot;ns12:floralAltColor&quot;/>&lt;xsl:copy-of select=&quot;ns13:floralPrefColor&quot;/>&lt;xsl:copy-of select=&quot;ns14:pickers&quot;/>&lt;xsl:copy-of select=&quot;ns15:region&quot;/>&lt;xsl:copy-of select=&quot;ns16:shape&quot;/>&lt;xsl:copy-of select=&quot;ns17:snipes&quot;/>&lt;xsl:copy-of select=&quot;ns18:varietal&quot;/>&lt;xsl:copy-of select=&quot;ns19:wineCompany&quot;/>&lt;xsl:copy-of select=&quot;ns20:wineMaker&quot;/>&lt;xsl:copy-of select=&quot;ns21:wineType&quot;/>&lt;xsl:copy-of select=&quot;ns22:nutritionFacts&quot;/>&lt;xsl:copy-of select=&quot;ns23:prodExtAttrib&quot;/>&lt;xsl:copy-of select=&quot;ns24:procurementHiearchy&quot;/>&lt;/ns1:products>&lt;/xsl:for-each>&lt;/ns1:esProducts>&lt;/xsl:template>&lt;/xsl:stylesheet>"
+                    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"
+                    inputVariable="RenderJSON-input" name="RenderJSON"
+                    outputVariable="RenderJSON"
+                    tibex:xpdlId="dadf13b2-9516-4718-b694-4805aec07a84" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    <bpws:targets>
+                        <bpws:target linkName="ParseJSONToRenderJSON1"/>
+                    </bpws:targets>
+                    <bpws:sources>
+                        <bpws:source linkName="RenderJSON1ToLog">
+                            <tibex:DesignExpression>
+                                <tibex:expression
+                                    expression="xsd:boolean(bw:getModuleProperty(&quot;log_payloads&quot;))" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"/>
+                            </tibex:DesignExpression>
+                            <bpws:transitionCondition><![CDATA[xsd:boolean(bw:getModuleProperty("log_payloads"))]]></bpws:transitionCondition>
+                        </bpws:source>
+                        <bpws:source linkName="RenderJSON1ToEnd"/>
+                    </bpws:sources>
+                    <tibex:inputBindings>
+                        <tibex:inputBinding
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:ns=&quot;http://xmlns.heb.com/ei/PRODUCTESQ&quot; xmlns:ns1=&quot;http://xmlns.heb.com/ei/productApiOut&quot; xmlns:ns2=&quot;http://xmlns.heb.com/ei/ProductFulfillment&quot; xmlns:ns3=&quot;http://xmlns.heb.com/ei/consumerPurchaseChoice&quot; xmlns:ns4=&quot;http://xmlns.heb.com/ei/bkryBottomColor&quot; xmlns:ns5=&quot;http://xmlns.heb.com/ei/bkryThm&quot; xmlns:ns6=&quot;http://xmlns.heb.com/ei/bkryTopColor&quot; xmlns:ns7=&quot;http://xmlns.heb.com/ei/bkryTxtColor&quot; xmlns:ns8=&quot;http://xmlns.heb.com/ei/cakeFilling&quot; xmlns:ns9=&quot;http://xmlns.heb.com/ei/cakeFlavor&quot; xmlns:ns10=&quot;http://xmlns.heb.com/ei/cakeFrost&quot; xmlns:ns11=&quot;http://xmlns.heb.com/ei/categories&quot; xmlns:ns12=&quot;http://xmlns.heb.com/ei/floralAltColor&quot; xmlns:ns13=&quot;http://xmlns.heb.com/ei/floralPrefColor&quot; xmlns:ns14=&quot;http://xmlns.heb.com/ei/pickers&quot; xmlns:ns15=&quot;http://xmlns.heb.com/ei/region&quot; xmlns:ns16=&quot;http://xmlns.heb.com/ei/shape&quot; xmlns:ns17=&quot;http://xmlns.heb.com/ei/snipes&quot; xmlns:ns18=&quot;http://xmlns.heb.com/ei/varietal&quot; xmlns:ns19=&quot;http://xmlns.heb.com/ei/wineCompany&quot; xmlns:ns20=&quot;http://xmlns.heb.com/ei/wineMaker&quot; xmlns:ns21=&quot;http://xmlns.heb.com/ei/wineType&quot; xmlns:ns22=&quot;http://xmlns.heb.com/ei/nutrition&quot; xmlns:ns23=&quot;http://xmlns.heb.com/ei/prodExtAttrib&quot; xmlns:ns24=&quot;http://xmlns.heb.com/ei/procurementHiearchy&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;ParseJSON&quot;/>&lt;xsl:template name=&quot;RenderJSON1-input&quot; match=&quot;/&quot;>&lt;ns1:esProducts>&lt;xsl:for-each select=&quot;$ParseJSON/ns:hits/ns:hits/ns:_source&quot;>&lt;ns1:products>&lt;xsl:if test=&quot;ns:prodId&quot;>&lt;ns1:prodId>&lt;xsl:value-of select=&quot;ns:prodId&quot;/>&lt;/ns1:prodId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:upc&quot;>&lt;ns1:upc>&lt;xsl:value-of select=&quot;ns:upc&quot;/>&lt;/ns1:upc>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:secondaryUPCs&quot;>&lt;ns1:secondaryUPCs>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:secondaryUPCs>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:tagItemTypCd&quot;>&lt;ns1:tagItemTypCd>&lt;xsl:value-of select=&quot;ns:tagItemTypCd&quot;/>&lt;/ns1:tagItemTypCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:tagItemId&quot;>&lt;ns1:tagItemId>&lt;xsl:value-of select=&quot;ns:tagItemId&quot;/>&lt;/ns1:tagItemId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:bonusPack&quot;>&lt;ns1:bonusPack>&lt;xsl:value-of select=&quot;ns:bonusPack&quot;/>&lt;/ns1:bonusPack>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:plu&quot;>&lt;ns1:plu>&lt;xsl:value-of select=&quot;ns:plu&quot;/>&lt;/ns1:plu>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:type&quot;>&lt;ns1:type>&lt;xsl:value-of select=&quot;ns:type&quot;/>&lt;/ns1:type>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:showOnSite&quot;>&lt;ns1:showOnSite>&lt;xsl:value-of select=&quot;ns:showOnSite&quot;/>&lt;/ns1:showOnSite>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:averageWeight&quot;>&lt;ns1:averageWeight>&lt;xsl:value-of select=&quot;ns:averageWeight&quot;/>&lt;/ns1:averageWeight>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:privateLabel&quot;>&lt;ns1:privateLabel>&lt;xsl:value-of select=&quot;ns:privateLabel&quot;/>&lt;/ns1:privateLabel>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:volume&quot;>&lt;ns1:volume>&lt;xsl:value-of select=&quot;ns:volume&quot;/>&lt;/ns1:volume>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:weightTolerance&quot;>&lt;ns1:weightTolerance>&lt;xsl:value-of select=&quot;ns:weightTolerance&quot;/>&lt;/ns1:weightTolerance>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:storageTemp&quot;>&lt;ns1:storageTemp>&lt;xsl:value-of select=&quot;ns:storageTemp&quot;/>&lt;/ns1:storageTemp>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minOrderValue&quot;>&lt;ns1:minOrderValue>&lt;xsl:value-of select=&quot;ns:minOrderValue&quot;/>&lt;/ns1:minOrderValue>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:maxOrderValue&quot;>&lt;ns1:maxOrderValue>&lt;xsl:value-of select=&quot;ns:maxOrderValue&quot;/>&lt;/ns1:maxOrderValue>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:orderIncrement&quot;>&lt;ns1:orderIncrement>&lt;xsl:value-of select=&quot;ns:orderIncrement&quot;/>&lt;/ns1:orderIncrement>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isTaxable&quot;>&lt;ns1:isTaxable>&lt;xsl:value-of select=&quot;ns:isTaxable&quot;/>&lt;/ns1:isTaxable>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:threshold&quot;>&lt;ns1:threshold>&lt;xsl:value-of select=&quot;ns:threshold&quot;/>&lt;/ns1:threshold>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:brand&quot;>&lt;ns1:brand>&lt;xsl:value-of select=&quot;ns:brand&quot;/>&lt;/ns1:brand>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:classCode&quot;>&lt;ns1:classCode>&lt;xsl:value-of select=&quot;ns:classCode&quot;/>&lt;/ns1:classCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:departmentCode&quot;>&lt;ns1:departmentCode>&lt;xsl:value-of select=&quot;ns:departmentCode&quot;/>&lt;/ns1:departmentCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:displayName&quot;>&lt;ns1:displayName>&lt;xsl:value-of select=&quot;ns:displayName&quot;/>&lt;/ns1:displayName>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:description&quot;>&lt;ns1:description>&lt;xsl:value-of select=&quot;ns:description&quot;/>&lt;/ns1:description>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:longDescription&quot;>&lt;ns1:longDescription>&lt;xsl:value-of select=&quot;ns:longDescription&quot;/>&lt;/ns1:longDescription>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:startDate&quot;>&lt;ns1:startDate>&lt;xsl:value-of select=&quot;ns:startDate&quot;/>&lt;/ns1:startDate>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:endDate&quot;>&lt;ns1:endDate>&lt;xsl:value-of select=&quot;ns:endDate&quot;/>&lt;/ns1:endDate>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:fixedRelatedProducts&quot;>&lt;ns1:fixedRelatedProducts>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:fixedRelatedProducts>&lt;/xsl:for-each>&lt;xsl:for-each select=&quot;ns:childSku&quot;>&lt;ns1:childSku>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:childSku>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:pssDepartmentId&quot;>&lt;ns1:pssDepartmentId>&lt;xsl:value-of select=&quot;ns:pssDepartmentId&quot;/>&lt;/ns1:pssDepartmentId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:pssDepartmentName&quot;>&lt;ns1:pssDepartmentName>&lt;xsl:value-of select=&quot;ns:pssDepartmentName&quot;/>&lt;/ns1:pssDepartmentName>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:salesChannel&quot;>&lt;ns1:salesChannel>&lt;xsl:value-of select=&quot;ns:salesChannel&quot;/>&lt;/ns1:salesChannel>&lt;/xsl:if>&lt;xsl:for-each select=&quot;ns:posProductIds&quot;>&lt;ns1:posProductIds>&lt;xsl:value-of select=&quot;.&quot;/>&lt;/ns1:posProductIds>&lt;/xsl:for-each>&lt;xsl:if test=&quot;ns:alcoholPct&quot;>&lt;ns1:alcoholPct>&lt;xsl:value-of select=&quot;ns:alcoholPct&quot;/>&lt;/ns1:alcoholPct>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:servingText&quot;>&lt;ns1:servingText>&lt;xsl:value-of select=&quot;ns:servingText&quot;/>&lt;/ns1:servingText>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:family&quot;>&lt;ns1:family>&lt;xsl:value-of select=&quot;ns:family&quot;/>&lt;/ns1:family>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:primoPick&quot;>&lt;ns1:primoPick>&lt;xsl:value-of select=&quot;ns:primoPick&quot;/>&lt;/ns1:primoPick>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ownBrand&quot;>&lt;ns1:ownBrand>&lt;xsl:value-of select=&quot;ns:ownBrand&quot;/>&lt;/ns1:ownBrand>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:safetyRegulatoryMessage&quot;>&lt;ns1:safetyRegulatoryMessage>&lt;xsl:value-of select=&quot;ns:safetyRegulatoryMessage&quot;/>&lt;/ns1:safetyRegulatoryMessage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:safetyWarning&quot;>&lt;ns1:safetyWarning>&lt;xsl:value-of select=&quot;ns:safetyWarning&quot;/>&lt;/ns1:safetyWarning>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:defaultparentCategory&quot;>&lt;ns1:defaultparentCategory>&lt;xsl:value-of select=&quot;ns:defaultparentCategory&quot;/>&lt;/ns1:defaultparentCategory>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:defaultSku&quot;>&lt;ns1:defaultSku>&lt;xsl:value-of select=&quot;ns:defaultSku&quot;/>&lt;/ns1:defaultSku>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:vintage&quot;>&lt;ns1:vintage>&lt;xsl:value-of select=&quot;ns:vintage&quot;/>&lt;/ns1:vintage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:foodPairingId&quot;>&lt;ns1:foodPairingId>&lt;xsl:value-of select=&quot;ns:foodPairingId&quot;/>&lt;/ns1:foodPairingId>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:upSells&quot;>&lt;ns1:upSells>&lt;xsl:value-of select=&quot;ns:upSells&quot;/>&lt;/ns1:upSells>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:gender&quot;>&lt;ns1:gender>&lt;xsl:value-of select=&quot;ns:gender&quot;/>&lt;/ns1:gender>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:template&quot;>&lt;ns1:template>&lt;xsl:value-of select=&quot;ns:template&quot;/>&lt;/ns1:template>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fsa&quot;>&lt;ns1:fsa>&lt;xsl:value-of select=&quot;ns:fsa&quot;/>&lt;/ns1:fsa>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:wic&quot;>&lt;ns1:wic>&lt;xsl:value-of select=&quot;ns:wic&quot;/>&lt;/ns1:wic>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:leb&quot;>&lt;ns1:leb>&lt;xsl:value-of select=&quot;ns:leb&quot;/>&lt;/ns1:leb>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:foodStamp&quot;>&lt;ns1:foodStamp>&lt;xsl:value-of select=&quot;ns:foodStamp&quot;/>&lt;/ns1:foodStamp>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:heartHealthyClaim&quot;>&lt;ns1:heartHealthyClaim>&lt;xsl:value-of select=&quot;ns:heartHealthyClaim&quot;/>&lt;/ns1:heartHealthyClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:lowSodiumClaim&quot;>&lt;ns1:lowSodiumClaim>&lt;xsl:value-of select=&quot;ns:lowSodiumClaim&quot;/>&lt;/ns1:lowSodiumClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fiberSourceClaim&quot;>&lt;ns1:fiberSourceClaim>&lt;xsl:value-of select=&quot;ns:fiberSourceClaim&quot;/>&lt;/ns1:fiberSourceClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:lowSaturatedFatClaim&quot;>&lt;ns1:lowSaturatedFatClaim>&lt;xsl:value-of select=&quot;ns:lowSaturatedFatClaim&quot;/>&lt;/ns1:lowSaturatedFatClaim>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:madeInTexas&quot;>&lt;ns1:madeInTexas>&lt;xsl:value-of select=&quot;ns:madeInTexas&quot;/>&lt;/ns1:madeInTexas>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:gTIN&quot;>&lt;ns1:gTIN>&lt;xsl:value-of select=&quot;ns:gTIN&quot;/>&lt;/ns1:gTIN>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:preparationInstructions&quot;>&lt;ns1:preparationInstructions>&lt;xsl:value-of select=&quot;ns:preparationInstructions&quot;/>&lt;/ns1:preparationInstructions>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:targetConsumerAge&quot;>&lt;ns1:targetConsumerAge>&lt;xsl:value-of select=&quot;ns:targetConsumerAge&quot;/>&lt;/ns1:targetConsumerAge>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:tags&quot;>&lt;ns1:tags>&lt;xsl:value-of select=&quot;ns:tags&quot;/>&lt;/ns1:tags>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:guaranteeImageCode&quot;>&lt;ns1:guaranteeImageCode>&lt;xsl:value-of select=&quot;ns:guaranteeImageCode&quot;/>&lt;/ns1:guaranteeImageCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:addOnProducts&quot;>&lt;ns1:addOnProducts>&lt;xsl:value-of select=&quot;ns:addOnProducts&quot;/>&lt;/ns1:addOnProducts>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isAddOnProduct&quot;>&lt;ns1:isAddOnProduct>&lt;xsl:value-of select=&quot;ns:isAddOnProduct&quot;/>&lt;/ns1:isAddOnProduct>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minOrderQty&quot;>&lt;ns1:minOrderQty>&lt;xsl:value-of select=&quot;ns:minOrderQty&quot;/>&lt;/ns1:minOrderQty>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fulfillerTypeCode&quot;>&lt;ns1:fulfillerTypeCode>&lt;xsl:value-of select=&quot;ns:fulfillerTypeCode&quot;/>&lt;/ns1:fulfillerTypeCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:stateRestrictions&quot;>&lt;ns1:stateRestrictions>&lt;xsl:value-of select=&quot;ns:stateRestrictions&quot;/>&lt;/ns1:stateRestrictions>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:taxCategoryCD&quot;>&lt;ns1:taxCategoryCD>&lt;xsl:value-of select=&quot;ns:taxCategoryCD&quot;/>&lt;/ns1:taxCategoryCD>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:taxQualifyingCondition&quot;>&lt;ns1:taxQualifyingCondition>&lt;xsl:value-of select=&quot;ns:taxQualifyingCondition&quot;/>&lt;/ns1:taxQualifyingCondition>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:shippingException&quot;>&lt;ns1:shippingException>&lt;xsl:value-of select=&quot;ns:shippingException&quot;/>&lt;/ns1:shippingException>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ageRestriction&quot;>&lt;ns1:ageRestriction>&lt;xsl:value-of select=&quot;ns:ageRestriction&quot;/>&lt;/ns1:ageRestriction>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:subdepartmentCode&quot;>&lt;ns1:subdepartmentCode>&lt;xsl:value-of select=&quot;ns:subdepartmentCode&quot;/>&lt;/ns1:subdepartmentCode>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:commodity&quot;>&lt;ns1:commodity>&lt;xsl:value-of select=&quot;ns:commodity&quot;/>&lt;/ns1:commodity>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:subcommodity&quot;>&lt;ns1:subcommodity>&lt;xsl:value-of select=&quot;ns:subcommodity&quot;/>&lt;/ns1:subcommodity>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ntrntlCodes&quot;>&lt;ns1:ntrntlCodes>&lt;xsl:value-of select=&quot;ns:ntrntlCodes&quot;/>&lt;/ns1:ntrntlCodes>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isLargeSurcharge&quot;>&lt;ns1:isLargeSurcharge>&lt;xsl:value-of select=&quot;ns:isLargeSurcharge&quot;/>&lt;/ns1:isLargeSurcharge>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:vendorID&quot;>&lt;ns1:vendorID>&lt;xsl:value-of select=&quot;ns:vendorID&quot;/>&lt;/ns1:vendorID>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:prop65&quot;>&lt;ns1:prop65>&lt;xsl:value-of select=&quot;ns:prop65&quot;/>&lt;/ns1:prop65>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:giftWrapEligible&quot;>&lt;ns1:giftWrapEligible>&lt;xsl:value-of select=&quot;ns:giftWrapEligible&quot;/>&lt;/ns1:giftWrapEligible>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:overSizeFee&quot;>&lt;ns1:overSizeFee>&lt;xsl:value-of select=&quot;ns:overSizeFee&quot;/>&lt;/ns1:overSizeFee>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:ingredient&quot;>&lt;ns1:ingredient>&lt;xsl:value-of select=&quot;ns:ingredient&quot;/>&lt;/ns1:ingredient>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:flowerGradeRanking&quot;>&lt;ns1:flowerGradeRanking>&lt;xsl:value-of select=&quot;ns:flowerGradeRanking&quot;/>&lt;/ns1:flowerGradeRanking>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:flowerGradeDesc&quot;>&lt;ns1:flowerGradeDesc>&lt;xsl:value-of select=&quot;ns:flowerGradeDesc&quot;/>&lt;/ns1:flowerGradeDesc>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:decorationPackage&quot;>&lt;ns1:decorationPackage>&lt;xsl:value-of select=&quot;ns:decorationPackage&quot;/>&lt;/ns1:decorationPackage>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:bkryShapeCd&quot;>&lt;ns1:bkryShapeCd>&lt;xsl:value-of select=&quot;ns:bkryShapeCd&quot;/>&lt;/ns1:bkryShapeCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:checkDigitUpc&quot;>&lt;ns1:checkDigitUpc>&lt;xsl:value-of select=&quot;ns:checkDigitUpc&quot;/>&lt;/ns1:checkDigitUpc>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:customerFriendlySize&quot;>&lt;ns1:customerFriendlySize>&lt;xsl:value-of select=&quot;ns:customerFriendlySize&quot;/>&lt;/ns1:customerFriendlySize>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:fulfillmentChnl&quot;>&lt;ns1:fulfillmentChnl>&lt;xsl:value-of select=&quot;ns:fulfillmentChnl&quot;/>&lt;/ns1:fulfillmentChnl>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntWd&quot;>&lt;ns1:retlUntWd>&lt;xsl:value-of select=&quot;ns:retlUntWd&quot;/>&lt;/ns1:retlUntWd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntLn&quot;>&lt;ns1:retlUntLn>&lt;xsl:value-of select=&quot;ns:retlUntLn&quot;/>&lt;/ns1:retlUntLn>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntHt&quot;>&lt;ns1:retlUntHt>&lt;xsl:value-of select=&quot;ns:retlUntHt&quot;/>&lt;/ns1:retlUntHt>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:retlUntWt&quot;>&lt;ns1:retlUntWt>&lt;xsl:value-of select=&quot;ns:retlUntWt&quot;/>&lt;/ns1:retlUntWt>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:pickerMap&quot;>&lt;ns1:pickerMap>&lt;xsl:value-of select=&quot;ns:pickerMap&quot;/>&lt;/ns1:pickerMap>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:specialHandler&quot;>&lt;ns1:specialHandler>&lt;xsl:value-of select=&quot;ns:specialHandler&quot;/>&lt;/ns1:specialHandler>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:optionsMap&quot;>&lt;ns1:optionsMap>&lt;xsl:value-of select=&quot;ns:optionsMap&quot;/>&lt;/ns1:optionsMap>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:stdUomCd&quot;>&lt;ns1:stdUomCd>&lt;xsl:value-of select=&quot;ns:stdUomCd&quot;/>&lt;/ns1:stdUomCd>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:uomQty&quot;>&lt;ns1:uomQty>&lt;xsl:value-of select=&quot;ns:uomQty&quot;/>&lt;/ns1:uomQty>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:imgUri&quot;>&lt;ns1:imgUri>&lt;xsl:value-of select=&quot;ns:imgUri&quot;/>&lt;/ns1:imgUri>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:minAgeRestriction&quot;>&lt;ns1:minAgeRestriction>&lt;xsl:value-of select=&quot;ns:minAgeRestriction&quot;/>&lt;/ns1:minAgeRestriction>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:isSupplement&quot;>&lt;ns1:isSupplement>&lt;xsl:value-of select=&quot;ns:isSupplement&quot;/>&lt;/ns1:isSupplement>&lt;/xsl:if>&lt;xsl:if test=&quot;ns:prodGroupId&quot;>&lt;ns1:prodGroupId>&lt;xsl:value-of select=&quot;ns:prodGroupId&quot;/>&lt;/ns1:prodGroupId>&lt;/xsl:if>&lt;xsl:copy-of select=&quot;ns2:productFulfillmentChnl&quot;/>&lt;xsl:copy-of select=&quot;ns3:consumerPurchaseChoice&quot;/>&lt;xsl:copy-of select=&quot;ns4:bkryBottomColor&quot;/>&lt;xsl:copy-of select=&quot;ns5:bkryThm&quot;/>&lt;xsl:copy-of select=&quot;ns6:bkryTopColor&quot;/>&lt;xsl:copy-of select=&quot;ns7:bkryTxtColor&quot;/>&lt;xsl:copy-of select=&quot;ns8:cakeFilling&quot;/>&lt;xsl:copy-of select=&quot;ns9:cakeFlavor&quot;/>&lt;xsl:copy-of select=&quot;ns10:cakeFrost&quot;/>&lt;xsl:copy-of select=&quot;ns11:categories&quot;/>&lt;xsl:copy-of select=&quot;ns12:floralAltColor&quot;/>&lt;xsl:copy-of select=&quot;ns13:floralPrefColor&quot;/>&lt;xsl:copy-of select=&quot;ns14:pickers&quot;/>&lt;xsl:copy-of select=&quot;ns15:region&quot;/>&lt;xsl:copy-of select=&quot;ns16:shape&quot;/>&lt;xsl:copy-of select=&quot;ns17:snipes&quot;/>&lt;xsl:copy-of select=&quot;ns18:varietal&quot;/>&lt;xsl:copy-of select=&quot;ns19:wineCompany&quot;/>&lt;xsl:copy-of select=&quot;ns20:wineMaker&quot;/>&lt;xsl:copy-of select=&quot;ns21:wineType&quot;/>&lt;xsl:copy-of select=&quot;ns22:nutritionFacts&quot;/>&lt;xsl:copy-of select=&quot;ns23:prodExtAttrib&quot;/>&lt;xsl:copy-of select=&quot;ns24:procurementHiearchy&quot;/>&lt;/ns1:products>&lt;/xsl:for-each>&lt;/ns1:esProducts>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                    </tibex:inputBindings>
+                    <tibex:config>
+                        <bwext:BWActivity
+                            activityTypeID="bw.restjson.JsonRender"
+                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
+                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
+                            xmlns:restjson="http://ns.tibco.com/bw/palette/restjson" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <activityConfig>
+                                <properties name="config" xsi:type="activityconfig:EMFProperty">
+                                    <type href="http://ns.tibco.com/bw/palette/restjson#//JsonRender"/>
+                                    <value jsonOutputStyle="None"
+                                    schemaType="Xsd" xsi:type="restjson:JsonRender">
+                                    <inputEditorElement href="platform:/resource/JSON_XForm.module/Schemas/product/ProductApiOut.xsd#//esProducts;XSDElementDeclaration"/>
+                                    </value>
+                                </properties>
+                            </activityConfig>
+                        </bwext:BWActivity>
+                    </tibex:config>
+                </tibex:activityExtension>
+            </bpws:extensionActivity>
+        </bpws:flow>
+    </bpws:scope>
+</bpws:process>

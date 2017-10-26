@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/bkryTxtColor"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/bkryTxtColor"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="bkryTxtColor">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="bkryTxtColorId" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="bkryTxtColorName" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,17 @@
+{"records": [
+    {
+        "jsonSchemaLocation": "/JSON_XForm.module/Service Descriptors/json_xform.module.XForm-XForm.json",
+        "conversionType": "linked",
+        "xsdSchemaTargetNamespace": "http://xmlns.heb.com/ei/PRODUCTESQ"
+    },
+    {
+        "jsonSchemaLocation": "/JSON_XForm.module/Service Descriptors/json_xform.module.XForm-XForm.json",
+        "conversionType": "linked",
+        "xsdSchemaTargetNamespace": "http://xmlns.heb.com/ei/productApiOut"
+    },
+    {
+        "jsonSchemaLocation": "/JSON_XForm.module/Service Descriptors/json_xform.module.XForm-XForm.json",
+        "conversionType": "linked",
+        "xsdSchemaTargetNamespace": "http://xmlns.example.com/XForm/parameters"
+    }
+]}

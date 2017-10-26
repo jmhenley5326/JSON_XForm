@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/prodExtAttrib"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/prodExtAttrib"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="prodExtAttrib">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="attributeId" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="attributeName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="attributeValCd" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="attributeValtxt" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="attributeXtrnlId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="sequenceNbr" type="xsd:integer" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

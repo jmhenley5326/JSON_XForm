@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://xmlns.heb.com/ei/procurementHiearchy"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://xmlns.heb.com/ei/procurementHiearchy"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="procurementHiearchy">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="bdmCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="bdmName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="budNbr" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="budName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="prodCatId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="prodCatName" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:rest="http://xsd.tns.tibco.com/bw/models/binding/rest" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scact="http://xsd.tns.tibco.com/amf/models/sca/componentType" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_IWGGYLj0EeeshZTDZJY6cA" targetNamespace="http://tns.tibco.com/bw/composite/JSON_XForm.module" name="JSON_XForm.module" compositeext:version="1.0.0" compositeext:formatVersion="2">
+  <sca:service xmi:id="_wDErQrpPEee-T-JEo4CnNg" name="xformmodemode" promote="ComponentXForm/xformmodemode">
+    <sca:interface.wsdl xmi:id="_wDErRrpPEee-T-JEo4CnNg" interface="http://xmlns.example.com/20171026081534PLT#wsdl.interface(xformmodemode)" scaext:wsdlLocation="../Processes/json_xform/module/XForm.bwp"/>
+    <scaext:binding xsi:type="rest:RestServiceBinding" xmi:id="_wDFSULpPEee-T-JEo4CnNg" name="RestService" path="/xform?mode={mode}" docBasePath="http://localhost:7777/JSON_XForm.module" docResourcePath="XForm" basePath="/" connector="json_xform.module.XForm" structuredData="true" technologyVersion="2.0" implementation="Service Descriptors/json_xform.module.XForm-XForm.json">
+      <operation xmi:id="_wDF5YLpPEee-T-JEo4CnNg" operationName="post" nickname="post-xformmodemode" httpMethod="POST" responseStyle="element">
+        <parameters xmi:id="_wDGgcbpPEee-T-JEo4CnNg">
+          <parameterMapping xmi:id="_wDGgcrpPEee-T-JEo4CnNg" parameterName="mode" parameterType="Query"/>
+        </parameters>
+        <clientFormat>json</clientFormat>
+        <clientRequestFormat>json</clientRequestFormat>
+      </operation>
+      <parameters xmi:id="_wDGgcLpPEee-T-JEo4CnNg"/>
+    </scaext:binding>
+    <scact:bindingAdjunct xmi:id="_wDF5YbpPEee-T-JEo4CnNg" bindingName="RestService"/>
+  </sca:service>
+  <sca:property xmi:id="_IZjDALj0EeeshZTDZJY6cA" name="BW.APPNODE.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_IZlfQLj0EeeshZTDZJY6cA" name="BW.DEPLOYMENTUNIT.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_IZnUcLj0EeeshZTDZJY6cA" name="BW.HOST.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_IZpJoLj0EeeshZTDZJY6cA" name="BW.DEPLOYMENTUNIT.VERSION" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_IZqXwLj0EeeshZTDZJY6cA" name="BW.MODULE.VERSION" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_IZrl4Lj0EeeshZTDZJY6cA" name="BW.CLOUD.PORT" type="XMLSchema:int" scalable="true"/>
+  <sca:property xmi:id="_IZs0ALj0EeeshZTDZJY6cA" name="BW.MODULE.NAME" type="XMLSchema:string" scalable="true"/>
+  <sca:property xmi:id="_CNyEELmTEeeWAYcfp0j4GQ" name="log_payloads" type="XMLSchema:boolean" scaext:simpleValue="false" publicAccess="true" scalable="true"/>
+  <sca:component xmi:id="_GzlDYLj3EeeyX6LJY874sw" name="ComponentTestJSONXForm" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_GzlDYbj3EeeyX6LJY874sw" processName="json_xform.module.TestJSONXForm"/>
+  </sca:component>
+  <sca:component xmi:id="_NYU0cLmUEeeWAYcfp0j4GQ" name="ComponentFanOutESResponse" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_NYU0cbmUEeeWAYcfp0j4GQ" processName="json_xform.module.util.FanOutESResponse"/>
+  </sca:component>
+  <sca:component xmi:id="_wDEEMLpPEee-T-JEo4CnNg" name="ComponentXForm" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_wDEEMbpPEee-T-JEo4CnNg" processName="json_xform.module.XForm"/>
+    <sca:service xmi:id="_wDErQLpPEee-T-JEo4CnNg" name="xformmodemode">
+      <sca:interface.wsdl xmi:id="_wDErQbpPEee-T-JEo4CnNg" interface="http://xmlns.example.com/20171026081534PLT#wsdl.interface(xformmodemode)" scaext:wsdlLocation="../Processes/json_xform/module/XForm.bwp"/>
+    </sca:service>
+  </sca:component>
+</sca:composite>

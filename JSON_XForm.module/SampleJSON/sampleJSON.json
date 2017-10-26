@@ -1,0 +1,202 @@
+{
+    "took": 6,
+    "timed_out": false,
+    "_shards": {
+        "total": 5,
+        "successful": 5,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": 2,
+        "max_score": 1,
+        "hits": [
+            {
+                "_index": "products",
+                "_type": "product",
+                "_id": "306492",
+                "_score": 1,
+                "_source": {
+                    "defaultparentCategory": true,
+                    "endDate": "12/31/9999",
+                    "departmentCode": "04",
+                    "consumerPurchaseChoice": [
+                        {
+                            "consmPrchChcDes": "Sold by Each",
+                            "consmPrchChcCd": "EACH"
+                        }
+                    ],
+                    "childSku": [
+                        4155464640
+                    ],
+                    "leb": false,
+                    "type": "GOODS",
+                    "taxCategoryCD": "000003",
+                    "tagItemTypCd": "ITMCD",
+                    "alcoholPct": 0,
+                    "ownBrand": false,
+                    "weightTolerance": false,
+                    "heartHealthyClaim": false,
+                    "isLargeSurcharge": false,
+                    "foodStamp": false,
+                    "isAddOnProduct": false,
+                    "privateLabel": false,
+                    "upc": 4155464640,
+                    "lowSodiumClaim": false,
+                    "primoPick": false,
+                    "orderIncrement": 1,
+                    "pssDepartmentId": "32",
+                    "retlUntWd": 1,
+                    "fsa": false,
+                    "bonusPack": false,
+                    "productFulfillmentChnl": [
+                        {
+                            "isShipToHome": false,
+                            "isCurbsidePickUp": false,
+                            "isShipToHomeFresh": false,
+                            "isPickUpInStore": false,
+                            "isDisplayOnly": true,
+                            "isCurbsideDelivery": false,
+                            "isShipToStore": false,
+                            "isDoNotDisplay": false,
+                            "isShipFromStore": false,
+                            "isDeliveryToHome": false
+                        }
+                    ],
+                    "startDate": "01/06/1990",
+                    "template": "Other",
+                    "retlUntWt": 0,
+                    "displayName": " ,",
+                    "procurementHiearchy": [
+                        {
+                            "budName": "Tracy Bliss",
+                            "prodCatId": "576",
+                            "budNbr": "810",
+                            "prodCatName": "MAKE UP",
+                            "bdmName": "HEIDI DEEN",
+                            "bdmCode": "48"
+                        }
+                    ],
+                    "prodId": 306492,
+                    "subdepartmentCode": "C",
+                    "wic": false,
+                    "tagItemId": 27287,
+                    "showOnSite": false,
+                    "minAgeRestriction": 0,
+                    "uomQty": "1",
+                    "lowSaturatedFatClaim": false,
+                    "classCode": 64,
+                    "isTaxable": true,
+                    "maxOrderValue": 999999999,
+                    "madeInTexas": false,
+                    "defaultSku": 4155464640,
+                    "stdUomCd": "EACH",
+                    "checkDigitUpc": "041554646405",
+                    "retlUntHt": 1,
+                    "fiberSourceClaim": false,
+                    "imgUri": 306492,
+                    "plu": false,
+                    "ageRestriction": false,
+                    "isSupplement": false,
+                    "lastUpdatedTs": "2017-10-18",
+                    "averageWeight": 0,
+                    "retlUntLn": 1,
+                    "minOrderValue": 1
+                }
+            },
+            {
+                "_index": "products",
+                "_type": "product",
+                "_id": "893309",
+                "_score": 1,
+                "_source": {
+                    "defaultparentCategory": true,
+                    "endDate": "12/31/9999",
+                    "departmentCode": "04",
+                    "consumerPurchaseChoice": [
+                        {
+                            "consmPrchChcDes": "Sold by Each",
+                            "consmPrchChcCd": "EACH"
+                        }
+                    ],
+                    "childSku": [
+                        4155451609
+                    ],
+                    "leb": false,
+                    "type": "GOODS",
+                    "taxCategoryCD": "000003",
+                    "tagItemTypCd": "ITMCD",
+                    "alcoholPct": 0,
+                    "ownBrand": false,
+                    "weightTolerance": false,
+                    "heartHealthyClaim": false,
+                    "isLargeSurcharge": false,
+                    "foodStamp": false,
+                    "isAddOnProduct": false,
+                    "privateLabel": false,
+                    "upc": 4155451609,
+                    "lowSodiumClaim": false,
+                    "primoPick": false,
+                    "orderIncrement": 1,
+                    "pssDepartmentId": "32",
+                    "retlUntWd": 3,
+                    "fsa": false,
+                    "bonusPack": false,
+                    "productFulfillmentChnl": [
+                        {
+                            "isShipToHome": false,
+                            "isCurbsidePickUp": false,
+                            "isShipToHomeFresh": false,
+                            "isPickUpInStore": false,
+                            "isDisplayOnly": true,
+                            "isCurbsideDelivery": false,
+                            "isShipToStore": false,
+                            "isDoNotDisplay": false,
+                            "isShipFromStore": false,
+                            "isDeliveryToHome": false
+                        }
+                    ],
+                    "startDate": "01/06/2007",
+                    "template": "Other",
+                    "retlUntWt": 0,
+                    "displayName": " ,",
+                    "procurementHiearchy": [
+                        {
+                            "budName": "Tracy Bliss",
+                            "prodCatId": "576",
+                            "budNbr": "810",
+                            "prodCatName": "MAKE UP",
+                            "bdmName": "HEIDI DEEN",
+                            "bdmCode": "48"
+                        }
+                    ],
+                    "prodId": 893309,
+                    "subdepartmentCode": "C",
+                    "wic": false,
+                    "tagItemId": 137807,
+                    "showOnSite": false,
+                    "minAgeRestriction": 0,
+                    "uomQty": "1",
+                    "lowSaturatedFatClaim": false,
+                    "classCode": 64,
+                    "isTaxable": true,
+                    "maxOrderValue": 999999999,
+                    "madeInTexas": false,
+                    "defaultSku": 4155451609,
+                    "stdUomCd": "EACH",
+                    "checkDigitUpc": "041554516098",
+                    "retlUntHt": 4,
+                    "fiberSourceClaim": false,
+                    "imgUri": 893309,
+                    "plu": false,
+                    "ageRestriction": false,
+                    "isSupplement": false,
+                    "lastUpdatedTs": "2017-10-18",
+                    "averageWeight": 0,
+                    "retlUntLn": 1.5,
+                    "minOrderValue": 1
+                }
+            }
+        ]
+    }
+}
