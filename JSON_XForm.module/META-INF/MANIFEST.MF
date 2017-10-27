@@ -3,14 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: JSON_XForm Module
 Bundle-SymbolicName: JSON_XForm.module
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: lib/org.json.jar,
- lib/apache-commons-lang.jar,
- lib/com.fasterxml.jackson.core.jar,
- lib/jackson-annotations-2.1.2.jar,
- lib/jackson-databind-2.1.0.jar,
- lib/jolt-core-0.1.0.jar,
- lib/json-utils-0.1.0.jar,
- .
+Bundle-ClassPath: lib/org.json.jar,lib/apache-commons-lang.jar,lib/com.fasterxml.jackson.core.jar,lib/jackson-annotations-2.1.2.jar,lib/jackson-databind-2.1.0.jar,lib/jolt-core-0.1.0.jar,lib/json-utils-0.1.0.jar,.
 Bundle-Vendor: TIBCO Software Inc.
 Export-Package: com.tibco.transform
 TIBCO-BW-Version: 2.3.1 V22 2017-08-17
